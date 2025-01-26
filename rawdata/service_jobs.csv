@@ -1,0 +1,91 @@
+id,name
+1,Electrician
+2,Plumber
+3,Carpenter
+4,Mason
+5,Welder
+6,HVAC Technician
+7,Auto Mechanic
+8,Painter
+9,Roofer
+10,Locksmith
+11,Handyman
+12,House Cleaner
+13,Gardener/Landscaper
+14,Pest Control Specialist
+15,Pool Maintenance Technician
+16,Appliance Repair Technician
+17,Window Cleaner
+18,Carpet Cleaner
+19,Home Organizer
+20,Hair Stylist
+21,Barber
+22,Makeup Artist
+23,Nail Technician
+24,Massage Therapist
+25,Personal Trainer
+26,Dietitian/Nutritionist
+27,Yoga Instructor
+28,Tattoo Artist
+29,Esthetician
+30,Physiotherapist
+31,Chiropractor
+32,Acupuncturist
+33,Speech Therapist
+34,Occupational Therapist
+35,Doula/Midwife
+36,Academic Tutor
+37,Music Teacher
+38,Art Instructor
+39,Dance Instructor
+40,Language Tutor
+41,Test Prep Coach
+42,Driving Instructor
+43,Computer Repair Technician
+44,IT Support Specialist
+45,Mobile Phone Repair Technician
+46,Home Automation Specialist
+47,Data Recovery Expert
+48,Network Installer
+49,Photographer
+50,Videographer
+51,Graphic Designer
+52,Web Developer
+53,Content Writer/Copywriter
+54,Social Media Manager
+55,Event Planner
+56,Interior Designer
+57,Dog Walker
+58,Pet Groomer
+59,Pet Sitter
+60,Veterinarian Technician
+61,Animal Trainer
+62,Taxi Driver
+63,Ride-Share Driver
+64,Courier/Delivery Driver
+65,Moving Company Worker
+66,Bicycle Repair Technician
+67,Tailor/Seamstress
+68,Cobbler
+69,Jeweler
+70,Watch Repair Technician
+71,Antiquities Restorer
+72,DJ
+73,Musician/Band
+74,Clown/Magician
+75,Balloon Artist
+76,Party Decorator
+77,Emergency Locksmith
+78,Water Damage Restoration Specialist
+79,Fire Damage Restoration Specialist
+80,Emergency Electrician
+81,Tax Preparer
+82,Notary Public
+83,Financial Advisor
+84,Insurance Agent
+85,Legal Document Preparer
+86,Driver
+87,Doctor
+88,Engineer
+89,Mobile Phone Repair Technician
+90,Computer Repair Technician
