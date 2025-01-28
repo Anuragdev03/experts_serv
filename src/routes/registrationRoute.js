@@ -1,9 +1,9 @@
-import { registerationController } from "../controllers/registerationController.js";
+import { registrationController } from "../controllers/registrationController.js";
 
 const registerProps = {
     method: "POST",
     url: "/expert-signup",
-    handler: registerationController,
+    handler: registrationController,
     bodyLimit: 512 * 1024,
     schema: {
         response: {
@@ -19,7 +19,14 @@ const registerProps = {
                             user_name: { type: "string"},
                             name: { type: "string"}
                         }
-                    }
+                    },
+                    token: { 
+                        type: "object",
+                        properties: {
+                            accessToken: { type: "string" },
+                            refreshToken: {type: "string"}
+                        }
+                    },
                 }
             },
             404: {
@@ -35,6 +42,7 @@ const registerProps = {
                 name: { type: "string", minLength: 3, maxLength: 100 },
                 user_name: { type: "string", minLength: 3, maxLength: 100 },
                 password: { type: "string", minLength: 12, maxLength: 100 },
+                email: { type: "string", maxLength: 150},
                 address: { type: "string", maxLength: 255 },
                 city: { type: "string", maxLength: 100 },
                 state: { type: "string", maxLength: 100 },
@@ -52,7 +60,7 @@ const registerProps = {
                 whatsapp_number: { type: "string", maxLength: 12 },
                 role: { type: "string", maxLength: 10}
             },
-            required: ["name", "user_name", "password", "address", "city", "state", "country", "pincode", "lat", "lng", "job_ids", "mobile_number", "role"],
+            required: ["name", "user_name", "email", "password", "address", "city", "state", "country", "pincode", "lat", "lng", "job_ids", "mobile_number", "role"],
         }
     },
 }

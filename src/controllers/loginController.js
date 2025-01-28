@@ -1,11 +1,10 @@
+import { storeRefreshToken } from "../models/authModal.js";
 import { isEmailExists } from "../models/userModal.js";
 import { comparePasswordsInWorker, generateAccessToken, generateRefreshToken } from "../utils/utilities.js";
 
 
 export async function userLogin(req, reply) {
     const body = req?.body;
-
-    console.log(body, "--------body");
 
     try {
 
@@ -19,13 +18,15 @@ export async function userLogin(req, reply) {
         if(isValidUser) {
             const accessToken = generateAccessToken({email: ifUserExists?.data[0].email});
             const refreshToken = generateRefreshToken({email: ifUserExists?.data[0].email});
-            console.log(accessToken, refreshToken)
-            return reply.code(200).send({message: "Login Successful"})
+
+            await storeRefreshToken(refreshToken, ifUserExists?.data[0].id);
+            return reply.code(200).send({message: "Login Successful", token: { accessToken, refreshToken }, data: ifUserExists?.data[0] })
         } else {
             return reply.code(404).send({message: "User not found!"})
         }
 
     } catch (err) {
+        console.log(err)
         return reply.code(404).send("Something went wrong please try again!")
     }
 }

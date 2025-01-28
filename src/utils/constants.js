@@ -10,5 +10,8 @@ export const envVar = {
     pgHost: process.env.POSTGRES_HOST,
     pgPort: process.env.POSTGRES_PORT,
     accessTokenSecret: process.env.ACCESS_TOKEN_SECRET,
-    refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET
+    refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
+    cookieSecret: process.env.COOKIE_SECRET,
+    mailjetPublic: process.env.MAILJET_APIKEY,
+    mailjetPrivate: process.env.MAILJET_SECRETKEY
 }

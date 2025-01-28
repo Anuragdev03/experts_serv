@@ -1,5 +1,4 @@
 import { qb, query } from "../plugins/db.js";
-import { checkTruthyValues } from "../utils/areAllTruthy.js";
 import { hashPasswordInWorker } from "../utils/utilities.js";
 
 
@@ -33,14 +32,22 @@ export async function createNewUsers(arg) {
 
 export async function checkIfUserExist(user_name, email) {
     const result = await qb.query("SELECT 1 FROM users WHERE email = $1", [email]);
-    const isUserNameEsixts = await qb.query("SELECT 1 FROM users WHERE user_name = $1", [user_name]);
+    const isUserNameExists = await qb.query("SELECT 1 FROM users WHERE user_name = $1", [user_name]);
     return {
         email: result?.rowCount > 0,
-        user_name: isUserNameEsixts?.rowCount > 0
+        user_name: isUserNameExists?.rowCount > 0
     }
 }
 
 export async function isEmailExists(email) {
     const result = await qb.query("SELECT * FROM users WHERE email = $1", [email]);
     return {exists: result?.rowCount > 0, data: result?.rows}
+}
+
+export async function updateExpertPassword(password, email) {
+    const sqlQuery = `UPDATE users SET password = $1, updated_at = $2 WHERE email = $3 RETURNING email`;
+
+    const res = await query(sqlQuery, [password, new Date(), email]);
+
+    return res;
 }

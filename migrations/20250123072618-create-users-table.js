@@ -67,7 +67,8 @@ module.exports = {
       },
       mobile_number: {
         type: Sequelize.STRING(12),
-        allowNull: false
+        allowNull: false,
+        unique: true 
       },
       whatsapp_number: {
         type: Sequelize.STRING(12),

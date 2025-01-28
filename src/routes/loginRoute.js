@@ -4,12 +4,29 @@ export const login = {
     method: "POST",
     url: "/login",
     handler: userLogin,
+    bodyLimit: 512 * 1024,
     schema: {
         response: {
             200: {
                 type: "object",
                 properties: {
-                    message: { type: "string"}
+                    message: { type: "string"},
+                    token: { 
+                        type: "object",
+                        properties: {
+                            accessToken: { type: "string" },
+                            refreshToken: {type: "string"}
+                        }
+                    },
+                    data: { 
+                        type: "object",
+                        properties: {
+                            email: { type: "string"},
+                            id: { type: "integer"},
+                            user_name: { type: "string"},
+                            name: { type: "string"}
+                        }
+                    }
                 }
             },
             404: {
@@ -22,8 +39,8 @@ export const login = {
         body: {
             type: "object",
             properties: {
-                email: { type: "string"},
-                password: {type: "string"},
+                email: { type: "string", maxLength: 150},
+                password: {type: "string", minLength: 12, maxLength: 100},
             },
             required: ["email", "password"]
         }

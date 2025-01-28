@@ -3,12 +3,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const isAuthTableExist = await queryInterface.tableExists("auth");
-    if(isAuthTableExist) {
+    const isotpTableExist = await queryInterface.tableExists("otps");
+    if(isotpTableExist) {
       return
     }
 
-    await queryInterface.createTable("auth", {
+    await queryInterface.createTable("otps", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -20,28 +20,22 @@ module.exports = {
         allowNull: false,
         unique: true
       },
-      refresh_token: {
+      otp: {
         type: Sequelize.STRING,
         allowNull: false
       },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
       },
-      updated_at: {
-        allowNull: true,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
-      },
-      deleted_at: {
-        allowNull: true,
+      expiry_time: {
+        allowNull: false,
         type: Sequelize.DATE,
       }
     })
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable("auth")
+    await queryInterface.dropTable("otps")
   }
 };

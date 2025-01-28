@@ -28,8 +28,10 @@ fastify.register(
 
 
 fastify.register(import('@fastify/rate-limit'), {
-  max: 100,
-  timeWindow: '1 minute'
+  max: 60,
+  timeWindow: '1 minute',
+  ban: 2,
+  banDuration: "30 minutes"
 })
 
 fastify.register(import("@fastify/multipart"))
