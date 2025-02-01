@@ -6,6 +6,7 @@ import cors from "@fastify/cors"
 
 import { envVar } from './src/utils/constants.js';
 import registerRoutes from './src/routes/index.js';
+import fastifyCookie from "@fastify/cookie";
 
 const fastify = Fastify({
   logger: true
@@ -25,6 +26,8 @@ fastify.register(
     // need to add option latter
   }
 )
+
+fastify.register(fastifyCookie);
 
 
 fastify.register(import('@fastify/rate-limit'), {

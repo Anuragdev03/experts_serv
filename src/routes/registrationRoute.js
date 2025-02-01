@@ -43,24 +43,10 @@ const registerProps = {
                 user_name: { type: "string", minLength: 3, maxLength: 100 },
                 password: { type: "string", minLength: 12, maxLength: 100 },
                 email: { type: "string", maxLength: 150},
-                address: { type: "string", maxLength: 255 },
-                city: { type: "string", maxLength: 100 },
-                state: { type: "string", maxLength: 100 },
-                country: { type: "string", maxLength: 100 },
-                pincode: { type: "string", maxLength: 10},
-                lat: { type: "string", maxLength: 50 },
-                lng: { type: "string", maxLength: 50 },
-                job_ids: {
-                    type: "array",
-                    items: { type: "integer" },
-                    minItems: 1,
-                    uniqueItems: true
-                },
-                mobile_number: {type: "string", maxLength: 12},
-                whatsapp_number: { type: "string", maxLength: 12 },
-                role: { type: "string", maxLength: 10}
+                role: { type: "string", maxLength: 10},
+                mobile_number: {type: "string", maxLength: 12, minLength: 5}
             },
-            required: ["name", "user_name", "email", "password", "address", "city", "state", "country", "pincode", "lat", "lng", "job_ids", "mobile_number", "role"],
+            required: ["name", "user_name", "email", "password", "role", "mobile_number"],
         }
     },
 }

@@ -23,7 +23,7 @@ export async function resetPasswordController(req, reply) {
         }
 
         if(body.otp === otpData?.rows[0].otp) {
-            const newPassword = await hashPasswordInWorker(body.password);
+            const newPassword = await hashPasswordInWorker(body.password, 10);
             const result = await updateExpertPassword(newPassword, body?.email);
             if(result.rowCount) {
                 await deleteOtpData(otpData?.rows[0].id);

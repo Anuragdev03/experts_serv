@@ -20,7 +20,36 @@ const expertList = {
                     type: "string",
                 },
             }
-        }
+        },
+        response: {
+            200: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                    totalCount: { type: "integer" },
+                    currentPage: { type: "integer" },
+                    limit: { type: "integer" },
+                    data: {
+                        type: "array",
+                        items: {
+                            properties: {
+                                name: { type: "string" },
+                                email: { type: "string" },
+                                id: { type: "integer"},
+                                address: { type: "string"},
+                                job_names: {type: "string"}
+                            }
+                        }
+                    }
+                }
+            },
+            404: {
+                type: "object",
+                properties: {
+                    message: { type: "string" }
+                }
+            }
+        },
     }
 }
 

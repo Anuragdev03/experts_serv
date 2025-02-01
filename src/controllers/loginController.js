@@ -20,9 +20,15 @@ export async function userLogin(req, reply) {
             const refreshToken = generateRefreshToken({email: ifUserExists?.data[0].email});
 
             await storeRefreshToken(refreshToken, ifUserExists?.data[0].id);
-            return reply.code(200).send({message: "Login Successful", token: { accessToken, refreshToken }, data: ifUserExists?.data[0] })
+            reply.setCookie("refreshToken", refreshToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "Strict",
+                path: "/"
+            })
+            return reply.code(200).send({message: "Login Successful", token: { accessToken }, data: ifUserExists?.data[0] })
         } else {
-            return reply.code(404).send({message: "User not found!"})
+            return reply.code(404).send({message: "User or password not found!"})
         }
 
     } catch (err) {

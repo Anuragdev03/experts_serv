@@ -39,31 +39,31 @@ module.exports = {
       },
       city: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: true
       },
       state: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: true
       },
       country: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: true
       },
       pincode: {
         type: Sequelize.STRING(10),
-        allowNull: false
+        allowNull: true
       },
       lat: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: true
       },
       lng: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: true
       },
       job_ids: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: false,
+        allowNull: true,
       },
       mobile_number: {
         type: Sequelize.STRING(12),
