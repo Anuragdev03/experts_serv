@@ -41,10 +41,84 @@ export async function isMobileNumberExists(mobile) {
 }
 
 export async function updateExpertPassword(password, email) {
-    console.log(password)
     const sqlQuery = `UPDATE users SET password = $1, updated_at = $2 WHERE email = $3 RETURNING email`;
 
     const res = await query(sqlQuery, [password, new Date(), email]);
 
     return res;
+}
+
+
+export async function updateUser(userObj) {
+    try {
+        let sqlQuery = `UPDATE users SET`;
+        let index = 1;
+        const values = [];
+
+        if(userObj?.name) {
+            sqlQuery += ` name = $${index},`;
+            index++;
+            values.push(userObj?.name);
+        }
+        if(userObj?.address) {
+            sqlQuery += ` address = $${index},`;
+            index++;
+            values.push(userObj?.address);
+        }
+        if(userObj?.city) {
+            sqlQuery += ` city = $${index},`;
+            index++
+            values.push(userObj?.city);
+        }
+        if(userObj?.state) {
+            sqlQuery += ` state = $${index},`;
+            index++;
+            values.push(userObj?.state);
+        }
+        if(userObj?.country) {
+            sqlQuery += ` country = $${index},`;
+            index++;
+            values.push(userObj?.country);
+        }
+        if(userObj?.pincode) {
+            sqlQuery += ` pincode = $${index},`;
+            index++;
+            values.push(userObj?.pincode);
+        }
+        if(userObj?.lat) {
+            sqlQuery += ` lat = $${index},`;
+            index++;
+            values.push(userObj?.lat);
+        }
+        if(userObj?.lng) {
+            sqlQuery += ` lng = $${index},`;
+            index++
+            values.push(userObj?.lng);
+        }
+        if(userObj?.job_ids) {
+            sqlQuery += ` job_ids = $${index},`;
+            index++;
+            values.push(userObj?.job_ids);
+        }
+        if(userObj?.whatsapp_number) {
+            sqlQuery += ` whatsapp_number = $${index},`;
+            index++;
+            values.push(userObj?.whatsapp_number);
+        }
+
+        sqlQuery += ` updated_at = $${index}`;
+        values.push(new Date());
+        index++;
+
+        if(userObj?.id) {
+            sqlQuery += ` WHERE id = $${index} RETURNING id`;
+            values.push(userObj?.id)
+        }
+
+        const res = await query(sqlQuery, values);
+        return res
+
+    } catch(err) {
+        console.log(err)
+    }
 }

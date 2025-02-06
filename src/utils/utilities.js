@@ -56,6 +56,16 @@ export const generateRefreshToken = (user) => {
   return refreshToken;
 };
 
+export function verifyToken(token) {
+  try {
+    const decoded = jwt.verify(token, envVar.accessTokenSecret);
+    return decoded; 
+  } catch (error) {
+    console.error('Token verification failed:', error);
+    return null; 
+  }
+}
+
 
 export function generateOTP(length = 6) {
   const digits = '0123456789';

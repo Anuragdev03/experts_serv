@@ -16,15 +16,16 @@ export async function userLogin(req, reply) {
 
         const isValidUser = await comparePasswordsInWorker(body?.password, ifUserExists?.data[0]?.password)
         if(isValidUser) {
-            const accessToken = generateAccessToken({email: ifUserExists?.data[0].email});
-            const refreshToken = generateRefreshToken({email: ifUserExists?.data[0].email});
+            const accessToken = generateAccessToken({id: ifUserExists?.data[0].id});
+            const refreshToken = generateRefreshToken({id: ifUserExists?.data[0].id});
 
             await storeRefreshToken(refreshToken, ifUserExists?.data[0].id);
             reply.setCookie("refreshToken", refreshToken, {
                 httpOnly: true,
-                secure: true,
+                secure: true, // should be true in production
                 sameSite: "Strict",
-                path: "/"
+                path: "/",
+                maxAge: 60 * 60 * 24 * 7
             })
             return reply.code(200).send({message: "Login Successful", token: { accessToken }, data: ifUserExists?.data[0] })
         } else {

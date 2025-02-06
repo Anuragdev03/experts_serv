@@ -8,3 +8,11 @@ export async function getCountries(keyword) {
 
     return res;
 }
+
+export async function getStates(countryId, state) {
+    const sqlQuery =  `SELECT id, name FROM states WHERE country_id = $1 AND name ILIKE $2`;
+
+    const res = await query(sqlQuery, [countryId, `%${state}%`]);
+
+    return res;
+}

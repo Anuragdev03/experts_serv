@@ -40,8 +40,8 @@ export async function registrationController(req, reply) {
         const res = await createNewUsers(queryObj);
         if (res?.rows[0]?.email) {
             // Generate token
-            const accessToken = generateAccessToken({ email: res?.rows[0]?.email });
-            const refreshToken = generateRefreshToken({ email: res?.rows[0]?.email });
+            const accessToken = generateAccessToken({ id: res?.rows[0]?.id });
+            const refreshToken = generateRefreshToken({ id: res?.rows[0]?.id });
 
             // store the refresh token in db
             await storeRefreshToken(refreshToken, res?.rows[0]?.id);

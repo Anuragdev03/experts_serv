@@ -24,6 +24,9 @@ fastify.register(
 fastify.register(
   cors, {
     // need to add option latter
+    origin: ["http://localhost:5173"], // When the credential is true the origin should explicitly set
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
+    credentials: true
   }
 )
 

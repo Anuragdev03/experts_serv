@@ -49,6 +49,12 @@ const registerProps = {
             required: ["name", "user_name", "email", "password", "role", "mobile_number"],
         }
     },
+    config: {
+        rateLimit: {
+            max: 30,
+            timeWindow: '1 minute',
+        }
+    }
 }
 
 export default async function registerationRoutes(fastify, opts) {

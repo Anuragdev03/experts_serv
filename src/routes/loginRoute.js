@@ -45,6 +45,12 @@ export const login = {
             required: ["email", "password"]
         }
     }, 
+    config: {
+        rateLimit: {
+            max: 30,
+            timeWindow: '1 minute',
+        }
+    }
 };
 
 export default async function loginRoute(fastify, opts) {
