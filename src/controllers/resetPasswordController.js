@@ -35,6 +35,6 @@ export async function resetPasswordController(req, reply) {
 
     } catch(err) {
         console.log(err);
-        reply.code(400).send({message: "Something went wrong please try again"});
+        return reply.code(400).send({message: "Something went wrong please try again"});
     }
 }

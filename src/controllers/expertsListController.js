@@ -120,11 +120,11 @@ export async function expertsListController(req, reply) {
         const countRes = await getTotalExpertsCount(countQuery, countValues);
         const result = await getExpertList(sqlQuery, values);
         const totalCount = countRes.rows[0].total_count;
-        reply.send({message: "Success", data: result?.rows, currentPage: page, totalCount, limit});
+        return reply.code(200).send({message: "Success", data: result?.rows, currentPage: page, totalCount, limit});
 
     } catch(err) {
         console.log(err);
-        reply.code(400).send({message: "something went wrong"})
+        return reply.code(400).send({message: "something went wrong"})
     }
 
 }

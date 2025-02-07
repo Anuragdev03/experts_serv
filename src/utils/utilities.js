@@ -59,10 +59,36 @@ export const generateRefreshToken = (user) => {
 export function verifyToken(token) {
   try {
     const decoded = jwt.verify(token, envVar.accessTokenSecret);
-    return decoded; 
+    return decoded;
   } catch (error) {
     console.error('Token verification failed:', error);
-    return null; 
+    if (error.name === 'TokenExpiredError') {
+      return { valid: false, error: 'Token has expired' };
+    } else if (error.name === 'JsonWebTokenError') {
+      return { valid: false, error: 'Invalid token' };
+    } else if (error.name === 'NotBeforeError') {
+      return { valid: false, error: 'Token not active yet' };
+    } else {
+      return { valid: false, error: 'Token verification failed' };
+    }
+  }
+}
+
+export function verifyRefreshToken(token) {
+  try {
+    const decoded = jwt.verify(token, envVar.refreshTokenSecret);
+    return decoded;
+  } catch (error) {
+    console.error('Token verification failed:', error);
+    if (error.name === 'TokenExpiredError') {
+      return { valid: false, error: 'Token has expired' };
+    } else if (error.name === 'JsonWebTokenError') {
+      return { valid: false, error: 'Invalid token' };
+    } else if (error.name === 'NotBeforeError') {
+      return { valid: false, error: 'Token not active yet' };
+    } else {
+      return { valid: false, error: 'Token verification failed' };
+    }
   }
 }
 

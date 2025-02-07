@@ -22,3 +22,9 @@ export async function getTotalExpertsCount(sqlQuery, values) {
     cache.set(cacheKey, res);
     return res;
 }
+
+export async function getExpertDetails(id) {
+    const sqlQuery = `SELECT u.*, STRING_AGG(j.name, ', ') AS job_names FROM users u  LEFT JOIN jobs j ON j.id = ANY(u.job_ids) WHERE u.id = $1 GROUP BY u.id`;
+    const res = await query(sqlQuery, [id]);
+    return res
+}

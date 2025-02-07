@@ -28,3 +28,9 @@ export async function getRefreshTokenOfUser(uid) {
     const res = await query(qText, values);
     return res;
 }
+
+export async function deleteRefreshTokenFromDb(id) {
+    const sqlQuery = `DELETE FROM auth WHERE id = $1`;
+    const res = await query(sqlQuery, [id]);
+    return res
+}

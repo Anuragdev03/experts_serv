@@ -1,6 +1,7 @@
 import { expertsListController } from "../controllers/expertsListController.js";
 import { expertProfileController } from "../controllers/expertProfileController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
+import { expertDetailController } from "../controllers/expertDetailController.js";
 
 const expertList = {
     method: "GET",
@@ -111,7 +112,55 @@ const updateExpert = {
     }
 }
 
+const userDetail = {
+    method: "GET",
+    url: "/expert-detail",
+    config: {
+        rateLimit: {
+            max: 70,
+            timeWindow: '1 minute',
+        }
+    },
+    preHandler: authMiddleware,
+    handler: expertDetailController,
+    schema: {
+        response: {
+            200: {
+                type: "object",
+                properties: {
+                    message: { type: "string"},
+                    data: {
+                        type: "object",
+                        properties: {
+                            name: { type: "string"},
+                            user_name: {type: "string"},
+                            email: {type: "string"},
+                            address: {type: "string"},
+                            city: {type: "string"},
+                            state: {type: "string"},
+                            country: {type: "string"},
+                            pincode: {type: "string"},
+                            lat: {type: "string"},
+                            lng: {type: "string"},
+                            mobile_number: {type: "string"},
+                            whatsapp_number: {type: "string"},
+                            job_names: {type: "string"}
+                        }
+                    }
+                }
+            },
+            400: {
+                type: "object",
+                properties: {
+                    message: { type: "string" }
+                }
+            }
+        }
+    }
+}
+
 export default function expertsRoutes(fastify, opts) {
     fastify.route(expertList);
     fastify.route(updateExpert);
+    fastify.route(userDetail);
 }
