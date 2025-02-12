@@ -1,7 +1,7 @@
 import { verifyToken } from "../utils/utilities.js";
 
 
-export async function authMiddleware(req, reply, done) {
+export async function authMiddleware(req, reply) {
     const accessToken = req.headers?.authorization;    
     
     try {
@@ -24,7 +24,6 @@ export async function authMiddleware(req, reply, done) {
             }
             if(isAuth?.id) {
                 req.userId = isAuth?.id;
-                done();
             }
         }
     } catch(err) {

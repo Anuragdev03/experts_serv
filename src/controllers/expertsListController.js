@@ -20,8 +20,7 @@ export async function expertsListController(req, reply) {
         
 
         // Query building
-        let sqlQuery = `SELECT u.*, STRING_AGG(j.name, ', ') AS job_names, COUNT(*) OVER() AS total_count FROM users u LEFT JOIN jobs j ON j.id = ANY(u.job_ids) WHERE 1=1`;
-        let countQuery = `SELECT COUNT(*) AS total_count FROM users WHERE 1=1`
+        let sqlQuery = `SELECT u.*, STRING_AGG(j.name, ', ') AS job_names, p.profile_url, COUNT(*) OVER() AS total_count FROM users u LEFT JOIN jobs j ON j.id = ANY(u.job_ids) LEFT JOIN public_profile p ON p.uid = u.id WHERE 1=1`;
 
         let values = [];
         let countValues = [];
@@ -32,7 +31,6 @@ export async function expertsListController(req, reply) {
         values.push("expert")
         index++
 
-        countQuery += ` AND role = $${countIndex} AND deleted_at IS NULL`;
         countValues.push("expert");
         countIndex++;
 
@@ -43,7 +41,6 @@ export async function expertsListController(req, reply) {
             index++;
 
 
-            countQuery += ` AND city = $${countIndex}`;
             countValues.push(city);
             countIndex++;
         }
@@ -54,7 +51,6 @@ export async function expertsListController(req, reply) {
             index++
 
 
-            countQuery += ` AND state ILIKE $${countIndex}`;
             countValues.push(state);
             countIndex++;
         }
@@ -64,17 +60,15 @@ export async function expertsListController(req, reply) {
             values.push(country);
             index++;
 
-            countQuery += ` AND country ILIKE $${countIndex}`;
             countValues.push(country);
             countIndex++;   
         }
         // To filter by keyword
         if(keyword) {
-            sqlQuery += ` AND u.name ILIKE $${index}`;
+            sqlQuery += ` AND (u.name ILIKE $${index} OR EXISTS (SELECT 1 FROM unnest(p.tags) AS tag WHERE tag ILIKE $${index}))`;
             values.push(`%${keyword}%`);
             index++;
 
-            countQuery += ` AND name ILIKE $${countIndex}`;
             countValues.push(keyword);
             countIndex++;   
         }
@@ -84,7 +78,6 @@ export async function expertsListController(req, reply) {
             values.push(job_ids);
             index++;
 
-            countQuery += ` AND job_ids && $${countIndex}::INTEGER[]`;
             countValues.push(job_ids);
             countIndex++; 
         }
@@ -96,15 +89,14 @@ export async function expertsListController(req, reply) {
             values.push(distance*1000);
             index++;
 
-
-            countQuery += ` AND ST_DistanceSphere(ST_MakePoint(lat::float, lng::float), ST_MakePoint($${countIndex}, $${++countIndex})) <= $${++countIndex}`;
             countValues.push(lat);
             countValues.push(lng);
             countValues.push(distance*1000);
             countIndex++;
         }
 
-        sqlQuery += ` GROUP BY u.id`; // Group by Offset order by should be after the WHERE
+        sqlQuery += ` GROUP BY u.id, p.profile_url`; // Group by Offset order by should be after the WHERE
+        let countQuery = `SELECT COUNT(*) AS total_count FROM (${sqlQuery}) as subquery;`
 
         if(limit) {
             sqlQuery += ` ORDER BY id LIMIT $${index}`;

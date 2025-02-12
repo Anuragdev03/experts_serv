@@ -6,6 +6,8 @@ import locationRoute from "./location.js";
 import jobsRoute from "./jobs.js";
 import logoutRoute from "./logout.js";
 import refreshTokenRoute from "./refreshRoute.js";
+import publicProfileRoute from "./publicProfileRoute.js";
+import customerRequestRoute from "./customerRequestRoute.js";
 
 export default async function registerRoutes(fastify, opts) {
   await fastify.register(loginRoute); 
@@ -16,4 +18,6 @@ export default async function registerRoutes(fastify, opts) {
   await fastify.register(jobsRoute);
   await fastify.register(logoutRoute);
   await fastify.register(refreshTokenRoute);
+  await fastify.register(publicProfileRoute);
+  await fastify.register(customerRequestRoute);
 }

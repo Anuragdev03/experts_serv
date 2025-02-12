@@ -122,3 +122,10 @@ export async function updateUser(userObj) {
         console.log(err)
     }
 }
+
+export async function getUserIdByUserName(userName) {
+    const sqlQuery = `SELECT id FROM users WHERE user_name = $1`;
+    const res = await query(sqlQuery, [userName]);
+
+    return res;
+}

@@ -45,7 +45,9 @@ const expertList = {
                                 job_names: { type: "string" },
                                 city: { type: "string" },
                                 lat: { type: "string" },
-                                lng: { type: "string" }
+                                lng: { type: "string" },
+                                profile_url: { type: "string"},
+                                user_name: {type: "string"}
                             }
                         }
                     }
