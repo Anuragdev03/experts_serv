@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
-import { getUserIdByUserName } from "../models/userModal.js";
-import { addCustomerRequest } from "../models/customerRequestModal.js";
+import { getUserIdByUserName } from "../../models/userModal.js";
+import { addCustomerRequest } from "../../models/customerRequestModal.js";
+import { sendNotification } from "../../models/notificationModal.js";
 
 
 export async function customerRequestController(req, reply) {
@@ -26,6 +27,7 @@ export async function customerRequestController(req, reply) {
                     const result = await addCustomerRequest(payload);
                     console.log(result)
                     if(result?.rows[0].tracking_link) {
+                        sendNotification(uid, "Hi, You have a new notification from the customer, Please check it.")
                         return reply.code(200).send({message: "Request sent successfully", trackingLink: result?.rows[0].tracking_link})
                     }
                 }

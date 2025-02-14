@@ -9,3 +9,9 @@ export async function addCustomerRequest(data) {
     const res = await query(sqlQuery, values);
     return res;
 }
+
+export async function requestCount(uid, status) {
+    const sqlQuery = `SELECT COUNT(*) FROM customer_request WHERE uid = $1 AND status = $2`;
+    const res = await query(sqlQuery, [uid, status]);
+    return res;
+}

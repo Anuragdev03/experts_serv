@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      isRead: {
+      is_read: {
         type: Sequelize.BOOLEAN,
         allowNull: true,
         defaultValue: false

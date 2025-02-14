@@ -40,8 +40,8 @@ const expertList = {
                             properties: {
                                 name: { type: "string" },
                                 email: { type: "string" },
-                                id: { type: "integer" },
-                                address: { type: "string" },
+                                // id: { type: "integer" },
+                                // address: { type: "string" },
                                 job_names: { type: "string" },
                                 city: { type: "string" },
                                 lat: { type: "string" },

@@ -8,6 +8,7 @@ import logoutRoute from "./logout.js";
 import refreshTokenRoute from "./refreshRoute.js";
 import publicProfileRoute from "./publicProfileRoute.js";
 import customerRequestRoute from "./customerRequestRoute.js";
+import notificationRoute from "./notification.js";
 
 export default async function registerRoutes(fastify, opts) {
   await fastify.register(loginRoute); 
@@ -20,4 +21,5 @@ export default async function registerRoutes(fastify, opts) {
   await fastify.register(refreshTokenRoute);
   await fastify.register(publicProfileRoute);
   await fastify.register(customerRequestRoute);
+  await fastify.register(notificationRoute)
 }
