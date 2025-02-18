@@ -15,3 +15,16 @@ export async function requestCount(uid, status) {
     const res = await query(sqlQuery, [uid, status]);
     return res;
 }
+
+export async function checkIsItValidUrl(url, uid) {
+    const sqlQuery = `SELECT id FROM customer_request WHERE uid = $1 AND tracking_link = $2`;
+    const res = await query(sqlQuery, [uid, url]);
+    return res;
+}
+
+export async function updateCustomerReqStatus(url, status) {
+    const sqlQuery = `UPDATE customer_request SET status = $1 WHERE tracking_link = $2`;
+    const res = await query(sqlQuery, [status, url]);
+
+    return res;
+}

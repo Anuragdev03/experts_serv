@@ -9,7 +9,6 @@ export async function expertProfileController(req, reply) {
         if(!userId) {
             return reply.code(404).send({message: "Unauthorized"})
         }
-        console.log(body);
         let payload = {...body, id: userId}
         if(body?.jobIds) {
             const job_ids = body.jobIds.split(",");
