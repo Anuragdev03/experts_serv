@@ -61,8 +61,14 @@ export function verifyToken(token) {
     const decoded = jwt.verify(token, envVar.accessTokenSecret);
     return decoded;
   } catch (error) {
-    console.error('Token verification failed:', error);
     if (error.name === 'TokenExpiredError') {
+      let expTime = new Date(error.expiredAt);
+      let currDate = new Date();
+      let diff = currDate - expTime;
+      let diffInDays = Math.floor(diff / (1000*60*60*24))
+      if(diffInDays > 7) {
+        return { valid: false, error: 'Login again' }
+      }
       return { valid: false, error: 'Token has expired' };
     } else if (error.name === 'JsonWebTokenError') {
       return { valid: false, error: 'Invalid token' };
