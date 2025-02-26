@@ -12,7 +12,8 @@ export async function refreshTokenMiddleware(req, reply, done) {
                 token = accessToken.slice(7)
             }
             const isAuth = verifyToken(token);
-            if (isAuth?.error !== "Token has expired") {
+
+            if (isAuth?.error && isAuth?.error !== "Token has expired") {
                 return reply.code(401).send({ message: isAuth.error })
             }
         }
