@@ -9,6 +9,7 @@ export async function getCustomerList(req, reply) {
     const offset = (page - 1) * limit;
     const sort = params.sort || "ASC";
     const status = params.status;
+    const keyword = params?.keyword;
     try {
         let index = 1;
         let sqlQuery = `SELECT * FROM customer_request WHERE uid =$${index}`;
@@ -19,6 +20,11 @@ export async function getCustomerList(req, reply) {
             sqlQuery += ` AND status = $${index}`;
             index++;
             values.push(status);
+        }
+        if(keyword) {
+            sqlQuery += ` AND customer_name ILIKE $${index}`;
+            index++;
+            values.push(`%${keyword}%`)
         }
 
         sqlQuery += ` ORDER BY created_at ${sort} LIMIT $${index}`;
@@ -34,6 +40,10 @@ export async function getCustomerList(req, reply) {
         if(status) {
             countQuery += ` AND status = $2`;
             countValues.push(status)
+        }
+        if(keyword) {
+            countQuery += ` AND customer_name ILIKE $3`;
+            countValues.push(`%${keyword}%`)
         }
         const countRes = await query(countQuery, countValues);
         const res = await query(sqlQuery, values);

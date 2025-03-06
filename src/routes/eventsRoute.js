@@ -109,7 +109,7 @@ const updateRoute = {
             type: "object",
             properties: {
                 id: { type: "number" },
-                title: { type: "string", maxLength: 100 },
+                title: { type: "string", maxLength: 200 },
                 start_date: { type: "string", maxLength: 100 },
                 end_date: { type: "string", maxLength: 100 },
                 description: { type: "string", maxLength: 100 },

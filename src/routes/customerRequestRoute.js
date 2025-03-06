@@ -93,7 +93,8 @@ const listRoute = {
             properties: {
                 page: { type: "integer", minimum: 1, default: 1 },
                 sort: { type: "string", default: "ASC" },
-                status: {type: "string"}
+                status: {type: "string"},
+                keyword: { type: "string"}
             }
         },
         response: {

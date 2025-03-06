@@ -11,6 +11,7 @@ import customerRequestRoute from "./customerRequestRoute.js";
 import notificationRoute from "./notification.js";
 import expertResponseRoute from "./expertResponse.js";
 import eventsRoute from "./eventsRoute.js";
+import tasksRoute from "./tasksRoute.js";
 
 export default async function registerRoutes(fastify, opts) {
   await fastify.register(loginRoute); 
@@ -26,4 +27,5 @@ export default async function registerRoutes(fastify, opts) {
   await fastify.register(notificationRoute);
   await fastify.register(expertResponseRoute);
   await fastify.register(eventsRoute);
+  await fastify.register(tasksRoute)
 }
