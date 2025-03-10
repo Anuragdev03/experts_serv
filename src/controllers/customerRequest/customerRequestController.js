@@ -25,9 +25,8 @@ export async function customerRequestController(req, reply) {
                         ...body
                     }
                     const result = await addCustomerRequest(payload);
-                    console.log(result)
                     if(result?.rows[0].tracking_link) {
-                        sendNotification(uid, "Hi, You have a new notification from the customer, Please check it.")
+                        sendNotification(uid, `Hi, you have received a new request from the user ${body?.customer_name}, Please check it.`)
                         return reply.code(200).send({message: "Request sent successfully", trackingLink: result?.rows[0].tracking_link})
                     }
                 }
