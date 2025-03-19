@@ -12,9 +12,9 @@ const fastify = Fastify({
   logger: true
 })
 
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' }
-})
+// fastify.get('/', async (request, reply) => {
+//   return { hello: 'world' }
+// })
 
 fastify.register(
   fastifyHelmet,
