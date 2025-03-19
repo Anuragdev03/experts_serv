@@ -15,7 +15,6 @@ export async function customerRequestController(req, reply) {
             && body.message) {
             // Validate user name and get user id
                 const isValidUser = await getUserIdByUserName(body?.user_name);
-                console.log(isValidUser.rows)
                 if(isValidUser?.rows[0].id) {
                     const uid = isValidUser?.rows[0].id;
                     const trackingLink = nanoid(10);
@@ -34,7 +33,6 @@ export async function customerRequestController(req, reply) {
             return reply.code(400).send({ message: "Some required fields are missing!" })
         }
     } catch (err) {
-        console.log(err)
         return reply.code(400).send({ message: "Something went wrong." });
     }
 }

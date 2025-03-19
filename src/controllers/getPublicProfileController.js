@@ -25,7 +25,6 @@ export async function getPublicProfileController(req, reply) {
         }
         return reply.code(200).send({message: "Success", data: payload})
     } catch(err) {
-        console.log(err);
         return reply.code(400).send({message: "Something went wrong"});
     }
 }

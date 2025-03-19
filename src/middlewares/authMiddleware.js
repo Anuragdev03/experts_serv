@@ -27,7 +27,6 @@ export async function authMiddleware(req, reply) {
             }
         }
     } catch(err) {
-        console.log(err)
         return reply.code(404).send({message: "Something went wrong. Please try again"});
     }
 }

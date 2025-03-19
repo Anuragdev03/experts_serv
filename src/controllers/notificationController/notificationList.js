@@ -5,7 +5,6 @@ import { query } from "../../plugins/db.js";
 export async function notificationListController(req, reply) {
     const uid = req.userId;
     const params = req.query
-    console.log(uid);
 
     try {
 
@@ -39,7 +38,6 @@ export async function notificationListController(req, reply) {
             return reply.code(400).send({ message: "No Data Found" })
         }
     } catch (err) {
-        console.log(err)
         return reply.code(400).send({ message: "Something went wrong" })
     }
 }

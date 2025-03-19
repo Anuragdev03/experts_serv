@@ -129,3 +129,15 @@ export async function getUserIdByUserName(userName) {
 
     return res;
 }
+
+export async function deleteExpertAccount(uid) {
+    const sqlQuery = `DELETE from users WHERE id = $1 RETURNING id`;
+    const res = await query(sqlQuery, [uid]);
+    return res;
+}
+
+export async function getPasswordByUid(uid) {
+    const sqlQuery = `SELECT password FROM users WHERE id = $1`;
+    const res = await query(sqlQuery, [uid]);
+    return res;
+}

@@ -41,7 +41,6 @@ export async function publicProfileController(req, reply) {
 
 
     } catch(err) {
-        console.log(err);
         return reply.code(400).send({message: "something went wrong"})
     }
 }

@@ -33,7 +33,6 @@ export async function userLogin(req, reply) {
         }
 
     } catch (err) {
-        console.log(err)
         return reply.code(404).send("Something went wrong please try again!")
     }
 }

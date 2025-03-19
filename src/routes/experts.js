@@ -2,6 +2,7 @@ import { expertsListController } from "../controllers/expertsListController.js";
 import { expertProfileController } from "../controllers/expertProfileController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { expertDetailController } from "../controllers/expertDetailController.js";
+import { deleteExpertController } from "../controllers/deleteExpert/deleteExpert.js";
 
 const expertList = {
     method: "GET",
@@ -46,8 +47,8 @@ const expertList = {
                                 city: { type: "string" },
                                 lat: { type: "string" },
                                 lng: { type: "string" },
-                                profile_url: { type: "string"},
-                                user_name: {type: "string"}
+                                profile_url: { type: "string" },
+                                user_name: { type: "string" }
                             }
                         }
                     }
@@ -85,16 +86,16 @@ const updateExpert = {
         body: {
             type: "object",
             properties: {
-                name: { type: "string", maxLength: 100},
-                address: {type: "string", maxLength: 250},
-                city: { type: "string", maxLength: 100},
-                state: { type: "string", maxLength: 100},
-                country: { type: "string", maxLength: 100},
-                pincode: { type: "string", maxLength: 10},
-                lat: {type: "string", maxLength: 50},
-                lng: {type: "string", maxLength: 50},
-                jobIds: {type: "string", maxLength: 50},
-                whatsapp_number: {type: "string", maxLength: 14}
+                name: { type: "string", maxLength: 100 },
+                address: { type: "string", maxLength: 250 },
+                city: { type: "string", maxLength: 100 },
+                state: { type: "string", maxLength: 100 },
+                country: { type: "string", maxLength: 100 },
+                pincode: { type: "string", maxLength: 10 },
+                lat: { type: "string", maxLength: 50 },
+                lng: { type: "string", maxLength: 50 },
+                jobIds: { type: "string", maxLength: 50 },
+                whatsapp_number: { type: "string", maxLength: 14 }
             },
         },
         response: {
@@ -130,23 +131,23 @@ const userDetail = {
             200: {
                 type: "object",
                 properties: {
-                    message: { type: "string"},
+                    message: { type: "string" },
                     data: {
                         type: "object",
                         properties: {
-                            name: { type: "string"},
-                            user_name: {type: "string"},
-                            email: {type: "string"},
-                            address: {type: "string"},
-                            city: {type: "string"},
-                            state: {type: "string"},
-                            country: {type: "string"},
-                            pincode: {type: "string"},
-                            lat: {type: "string"},
-                            lng: {type: "string"},
-                            mobile_number: {type: "string"},
-                            whatsapp_number: {type: "string"},
-                            job_names: {type: "string"}
+                            name: { type: "string" },
+                            user_name: { type: "string" },
+                            email: { type: "string" },
+                            address: { type: "string" },
+                            city: { type: "string" },
+                            state: { type: "string" },
+                            country: { type: "string" },
+                            pincode: { type: "string" },
+                            lat: { type: "string" },
+                            lng: { type: "string" },
+                            mobile_number: { type: "string" },
+                            whatsapp_number: { type: "string" },
+                            job_names: { type: "string" }
                         }
                     }
                 }
@@ -161,8 +162,45 @@ const userDetail = {
     }
 }
 
+const deleteExpert = {
+    method: "POST",
+    url: "/expert/delete-account",
+    bodyLimit: 100 * 1024,
+    config: {
+        rateLimit: {
+            max: 5,
+            timeWindow: '1 minute',
+        }
+    },
+    preHandler: authMiddleware,
+    handler: deleteExpertController,
+    schema: {
+        response: {
+            200: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                }
+            },
+            400: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                }
+            }
+        },
+        body: {
+            type: "object",
+            properties: {
+                password: {type: "string"}
+            }
+        }
+    }
+
+}
 export default function expertsRoutes(fastify, opts) {
     fastify.route(expertList);
     fastify.route(updateExpert);
     fastify.route(userDetail);
+    fastify.route(deleteExpert)
 }

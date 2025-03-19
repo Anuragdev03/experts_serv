@@ -2,7 +2,6 @@ import { query } from "../../plugins/db.js";
 
 
 export async function tasklistController(req, reply) {
-    console.log(req.query)
     const uid = req.userId;
     const params = req.query
     try {
@@ -12,6 +11,7 @@ export async function tasklistController(req, reply) {
         const sort = params.sort || "ASC";
         const status = params.status;
         const priority = params.priority;
+        const filterDueDate = params?.due_date;
 
         let index = 1;
         let values = [];
@@ -29,6 +29,11 @@ export async function tasklistController(req, reply) {
             sqlQuery +=` AND priority = $${index}`;
             index++;
             values.push(priority);
+        }
+        if(filterDueDate) {
+            sqlQuery += ` AND due_date::DATE = $${index} AND (status = 'pending' OR status = 'inprogress')`;
+            index++;
+            values.push(filterDueDate)
         }
         // ================ To get count =================
         let countQuery = `SELECT COUNT(*) AS total_count FROM (${sqlQuery}) as subquery;`;
@@ -50,7 +55,6 @@ export async function tasklistController(req, reply) {
             return reply.code(400).send({ message: "No data found" })
         }
     } catch (err) {
-        console.log(err)
         return reply.code(400).send({ message: "Something went wrong" })
     }
 }

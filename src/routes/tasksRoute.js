@@ -3,6 +3,7 @@ import { createTaskController } from "../controllers/tasks/createTask.js";
 import { deleteTaskController } from "../controllers/tasks/deleteTask.js";
 import { tasklistController } from "../controllers/tasks/taskList.js";
 import { updateTaskController } from "../controllers/tasks/updateTask.js";
+import { getTasksCount } from "../controllers/tasks/count.js";
 
 const createRoute = {
     method: "POST",
@@ -124,6 +125,7 @@ const listRoute = {
                 priority: { type: "string" },
                 sort: { type: "string", default: "ASC" },
                 page: { type: "integer", minimum: 1, default: 1 },
+                due_date: { type: "string" }
             }
         }
     }
@@ -169,9 +171,41 @@ const updateRoute = {
     }
 }
 
+const getCount = {
+    url: "/tasks/count",
+    method: "GET",
+    bodyLimit: 100 * 1024,
+    config: {
+        rateLimit: {
+            max: 60,
+            timeWindow: '1 minute',
+        }
+    },
+    preHandler: authMiddleware,
+    handler: getTasksCount,
+    schema: {
+        response: {
+            200: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                    count: { type: "string" },
+                }
+            },
+            400: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                }
+            }
+        }
+    }
+}
+
 export default function tasksRoute(fastify) {
     fastify.route(createRoute);
     fastify.route(deleteRoute);
     fastify.route(listRoute);
     fastify.route(updateRoute);
+    fastify.route(getCount);
 }

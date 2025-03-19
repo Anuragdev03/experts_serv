@@ -16,6 +16,12 @@ export async function requestCount(uid, status) {
     return res;
 }
 
+export async function acceptCount(uid, status = "accepted") {
+    const sqlQuery = `SELECT COUNT(*) FROM customer_request WHERE uid = $1 AND status = $2`;
+    const res = await query(sqlQuery, [uid, status]);
+    return res;
+}
+
 export async function checkIsItValidUrl(url, uid) {
     const sqlQuery = `SELECT id FROM customer_request WHERE uid = $1 AND tracking_link = $2`;
     const res = await query(sqlQuery, [uid, url]);

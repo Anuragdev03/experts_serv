@@ -17,7 +17,6 @@ export async function deleteEventController(req, reply) {
             return reply.code(400).send({ message: "Something went wrong "})
         }
     } catch(err) {
-        console.log(err)
         return reply.code(400).send({ message: "Something went wrong "})
     }
 }

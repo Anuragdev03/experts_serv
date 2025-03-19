@@ -63,3 +63,9 @@ export async function updateTask(payload) {
     const res = await query(sqlQuery, values);
     return res;
 }
+
+export async function tasksCount(uid, status = "pending") {
+    const sqlQuery = `SELECT COUNT(*) FROM tasks WHERE uid = $1 AND status = $2`;
+    const res = await query(sqlQuery, [uid, status]);
+    return res;
+}

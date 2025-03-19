@@ -53,7 +53,6 @@ export async function getCustomerList(req, reply) {
             return reply.code(400).send({ message: "No data found" });
         }
     } catch (err) {
-        console.log(err)
         return reply.code(400).send({ message: "Something went wrong" })
     }
 }

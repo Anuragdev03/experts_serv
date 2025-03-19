@@ -4,7 +4,6 @@ import { updateEvent } from "../../models/eventsModal.js";
 export async function updateEventController(req, reply) {
     const uid = req.userId;
     const body = req.body
-    console.log(uid);
     try {
         let payload = { id: body.id };
         if(body?.title) {

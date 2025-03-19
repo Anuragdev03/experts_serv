@@ -3,7 +3,6 @@ import { getEventList } from "../../models/eventsModal.js";
 
 
 export async function eventListController(req, reply) {
-    console.log(req.query.month)
     let start = req.query?.start;
     let end = req.query?.end
     const uid = req?.userId;
@@ -18,14 +17,12 @@ export async function eventListController(req, reply) {
         }
 
         const res = await getEventList(uid, start, end);
-        console.log(res.rows)
         if(res?.rowCount > 0) {
             return reply.code(200).send({message: "Success", data: res.rows});  
         } else {
             return reply.code(200).send({message: "No Data Found!"})
         }
     } catch(err) {
-        console.log(err)
         return reply.code(200).send({message: "Something went wrong"})
     }
 }

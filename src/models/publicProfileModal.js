@@ -20,7 +20,6 @@ export async function updatePublicProfile(data) {
     let sqlQuery = `UPDATE public_profile SET`;
     let index = 1;
     const values = [];
-    console.log(data)
     if(data?.tags) {
         sqlQuery += ` tags = $${index},`;
         index++;
@@ -44,7 +43,6 @@ export async function updatePublicProfile(data) {
         sqlQuery += ` WHERE uid = $${index} RETURNING uid`;
         values.push(data.uid)
     }
-    console.log(sqlQuery)
 
     const res = await query(sqlQuery, values);
     return res;

@@ -85,7 +85,6 @@ export function verifyRefreshToken(token) {
     const decoded = jwt.verify(token, envVar.refreshTokenSecret);
     return decoded;
   } catch (error) {
-    console.error('Token verification failed:', error);
     if (error.name === 'TokenExpiredError') {
       return { valid: false, error: 'Token has expired' };
     } else if (error.name === 'JsonWebTokenError') {

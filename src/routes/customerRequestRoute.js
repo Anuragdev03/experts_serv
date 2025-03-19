@@ -62,7 +62,8 @@ const getCount = {
                 type: "object",
                 properties: {
                     message: { type: "string" },
-                    count: { type: "string" }
+                    count: { type: "string" },
+                    acceptCount: { type: "string"}
                 }
             },
             400: {

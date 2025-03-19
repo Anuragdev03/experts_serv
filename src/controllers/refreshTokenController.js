@@ -16,6 +16,6 @@ export async function refreshTokenController(req, reply) {
             }
         } 
     } catch(err) {
-        console.log(err)
+        return reply.code(400).send({message: "Something went wrong"});
     }
 }
