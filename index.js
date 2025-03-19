@@ -46,10 +46,9 @@ fastify.register(import("@fastify/multipart"))
  */
 const start = async () => {
   const port = envVar.port || 3000; 
-  const host = '0.0.0.0';
   try {
     await fastify.register(registerRoutes);
-    await fastify.listen({ port: port, host })
+    await fastify.listen({ port: port })
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
