@@ -48,7 +48,7 @@ export async function registrationController(req, reply) {
             reply.setCookie("refreshToken", refreshToken, {
                 httpOnly: true,
                 secure: true,
-                sameSite: "Strict",
+                sameSite: "None",
                 path: "/"
             })
             return reply.code(200).send({ message: "Registration successful", data: res?.rows[0], token: { accessToken } });

@@ -23,7 +23,7 @@ export async function userLogin(req, reply) {
             reply.setCookie("refreshToken", refreshToken, {
                 httpOnly: true,
                 secure: true, // should be true in production
-                sameSite: "Strict",
+                sameSite: "None",
                 path: "/",
                 maxAge: 60 * 60 * 24 * 7
             })
