@@ -115,6 +115,7 @@ export async function expertsListController(req, reply) {
         return reply.code(200).send({message: "Success", data: result?.rows, currentPage: page, totalCount, limit});
 
     } catch(err) {
+        console.log(err);
         return reply.code(400).send({message: "something went wrong"})
     }
 
