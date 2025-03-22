@@ -3,6 +3,7 @@ import { expertProfileController } from "../controllers/expertProfileController.
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { expertDetailController } from "../controllers/expertDetailController.js";
 import { deleteExpertController } from "../controllers/deleteExpert/deleteExpert.js";
+import {profileStatusController} from "../controllers/profileStatusController.js";
 
 const expertList = {
     method: "GET",
@@ -147,7 +148,8 @@ const userDetail = {
                             lng: { type: "string" },
                             mobile_number: { type: "string" },
                             whatsapp_number: { type: "string" },
-                            job_names: { type: "string" }
+                            job_names: { type: "string" },
+                            show_profile: {type: "boolean"}
                         }
                     }
                 }
@@ -192,15 +194,53 @@ const deleteExpert = {
         body: {
             type: "object",
             properties: {
-                password: {type: "string"}
+                password: { type: "string" }
             }
         }
     }
 
 }
+
+const profileStatus = {
+    method: "PATCH",
+    url: "/expert/profile-status",
+    bodyLimit: 100 * 1024,
+    config: {
+        rateLimit: {
+            max: 70,
+            timeWindow: '1 minute',
+        }
+    },
+    preHandler: authMiddleware,
+    handler: profileStatusController,
+    schema: {
+        body: {
+            type: "object",
+            properties: {
+                show_profile: { type: "boolean" }
+            }
+        },
+        response: {
+            200: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                    show_profile: { type: "boolean" }
+                }
+            },
+            400: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                }
+            }
+        }
+    }
+}
 export default function expertsRoutes(fastify, opts) {
     fastify.route(expertList);
     fastify.route(updateExpert);
     fastify.route(userDetail);
-    fastify.route(deleteExpert)
+    fastify.route(deleteExpert);
+    fastify.route(profileStatus);
 }

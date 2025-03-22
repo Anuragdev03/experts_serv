@@ -28,3 +28,9 @@ export async function getExpertDetails(id) {
     const res = await query(sqlQuery, [id]);
     return res
 }
+
+export async function updateExpertProfileStatus(uid, status) {
+    const sqlQuery = `UPDATE users SET show_profile = $1 WHERE id = $2 RETURNING show_profile`;
+    const res = await query(sqlQuery, [status, uid]);
+    return res;
+}

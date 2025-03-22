@@ -24,7 +24,7 @@ fastify.register(
 fastify.register(
   cors, {
     // need to add option latter
-    origin: ["http://localhost:5173", "http://xpertserv.com", "https://xpertserv.com", "https://www.xpertserv.com", "https://xpertserv.netlify.app"], // When the credential is true the origin should explicitly set
+    origin: ["http://localhost:5173", "http://xpertserv.com", "https://xpertserv.com", "https://www.xpertserv.com"], // When the credential is true the origin should explicitly set
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
     credentials: true
   }

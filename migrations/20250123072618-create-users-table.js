@@ -79,6 +79,11 @@ module.exports = {
         allowNull: false,
         defaultValue: "expert"
       },
+      show_profile: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

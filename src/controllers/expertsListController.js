@@ -34,6 +34,13 @@ export async function expertsListController(req, reply) {
         countValues.push("expert");
         countIndex++;
 
+        sqlQuery += ` AND u.show_profile = $${index}`,
+        values.push(true);
+        index++;
+
+        countValues.push(true);
+        countIndex++;
+
         // To filter by city
         if(city) {
             sqlQuery += ` AND u.city = $${index}`; // If we declare the table name with key something like "user u" the we have to use the u in every other place like "u.city"
