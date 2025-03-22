@@ -4,6 +4,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { expertDetailController } from "../controllers/expertDetailController.js";
 import { deleteExpertController } from "../controllers/deleteExpert/deleteExpert.js";
 import {profileStatusController} from "../controllers/profileStatusController.js";
+import { changePasswordController } from "../controllers/changePasswordController.js";
 
 const expertList = {
     method: "GET",
@@ -237,10 +238,51 @@ const profileStatus = {
         }
     }
 }
+
+const changePassword = {
+    method: "PATCH",
+    url: "/expert/change-password",
+    bodyLimit: 100 * 1024,
+    config: {
+        rateLimit: {
+            max: 70,
+            timeWindow: '1 minute',
+        }
+    },
+    preHandler: authMiddleware,
+    handler: changePasswordController,
+    schema: {
+        body: {
+            type: "object",
+            properties: {
+                current_password: {type: "string"},
+                new_password: {type: "string", minLength: 12, maxLength: 100}
+            },
+            required: ["current_password", "new_password"]
+        },
+        response: {
+            200: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                }
+            },
+            400: {
+                type: "object",
+                properties: {
+                    message: { type: "string" },
+                }
+            }
+        }
+    }
+}
+
+
 export default function expertsRoutes(fastify, opts) {
     fastify.route(expertList);
     fastify.route(updateExpert);
     fastify.route(userDetail);
     fastify.route(deleteExpert);
     fastify.route(profileStatus);
+    fastify.route(changePassword)
 }

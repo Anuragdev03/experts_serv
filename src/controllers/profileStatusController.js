@@ -7,7 +7,6 @@ export async function profileStatusController(req, reply) {
 
     try {
         const res = await  updateExpertProfileStatus(uid, status);
-        console.log(res.rows)
         if(res?.rowCount) {
             return reply.code(200).send({message: "Success", show_profile: res?.rows[0]?.show_profile})
         } else {

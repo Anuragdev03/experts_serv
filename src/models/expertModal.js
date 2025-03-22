@@ -34,3 +34,9 @@ export async function updateExpertProfileStatus(uid, status) {
     const res = await query(sqlQuery, [status, uid]);
     return res;
 }
+
+export async function updateExpertPassword(uid, password) {
+    const sqlQuery = `UPDATE users SET password = $1 WHERE id = $2 RETURNING id`;
+    const res = await query(sqlQuery, [password, uid]);
+    return res;
+}
