@@ -108,6 +108,8 @@ const viewProfile = {
                             city: {type: "string"},
                             state:{type: "string"},
                             country: {type: "string"},
+                            lat: {type: "string"},
+                            lng: {type: "string"},
                             job_names: {
                                 type: "array",
                                 items: {
